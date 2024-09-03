@@ -27,7 +27,7 @@ label {
     font-size: 18px;
 }
 
-input[type="email"] {
+input[type="text"] {
     padding: 10px;
     font-size: 16px;
     margin-bottom: 10px;
@@ -65,5 +65,21 @@ button:hover {
 
 #qrCode {
     margin-top: 20px;
+    display: none; /* Ocultar el QR hasta que se valide */
 }
+
+#qrPanel {
+    display: none;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+#qrPanel.show {
+    display: block;
+}
+
 
