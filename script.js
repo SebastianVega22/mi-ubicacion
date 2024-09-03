@@ -1,7 +1,8 @@
 var map;
-var targetLat = 4.745160; // Latitud de la nueva ubicación específica (Cra. 145a #132b-28, Bogotá)
-var targetLon = -74.117450; // Longitud de la nueva ubicación específica
+var targetLat = 4.7399325; // Latitud de la nueva ubicación específica (Cra. 145a #132b-28, Bogotá)
+var targetLon = -74.1303559; // Longitud de la nueva ubicación específica
 var qrTimer;
+var marginOfError = 0.001; // Margen de error en grados (~111 metros)
 
 document.getElementById('emailForm').addEventListener('submit', function(event) {
     event.preventDefault();
@@ -43,38 +44,20 @@ function showPosition(position) {
         .bindPopup("¡Aquí estás con una precisión de " + accuracy + " metros!")
         .openPopup();
 
-    var distance = getDistanceFromLatLonInKm(lat, lon, targetLat, targetLon) * 1000; // Convertir a metros
     var message = document.getElementById('message');
     
     // Imprimir las coordenadas obtenidas
     var coordinatesMessage = `Coordenadas obtenidas: Latitud: ${lat.toFixed(6)}, Longitud: ${lon.toFixed(6)}`;
     message.innerHTML = coordinatesMessage + "<br>";
 
-    if (distance < 100) { // Si la distancia es menor a 100 metros
+    // Validar si la ubicación está dentro del margen de error
+    if (Math.abs(lat - targetLat) <= marginOfError && Math.abs(lon - targetLon) <= marginOfError) {
         message.innerHTML += "Te encuentras en el sitio. Generando código QR...";
         generateQR();
     } else {
         message.innerHTML += "No te encuentras en el sitio.";
         clearQRCode();
     }
-}
-
-function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
-    var R = 6371; // Radio de la Tierra en km
-    var dLat = deg2rad(lat2-lat1); 
-    var dLon = deg2rad(lon2-lon1); 
-    var a = 
-        Math.sin(dLat/2) * Math.sin(dLat/2) +
-        Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
-        Math.sin(dLon/2) * Math.sin(dLon/2)
-        ; 
-    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
-    var d = R * c; // Distancia en km
-    return d;
-}
-
-function deg2rad(deg) {
-    return deg * (Math.PI/180);
 }
 
 function showError(error) {
@@ -118,3 +101,4 @@ function clearQRCode() {
     qrCodeDiv.innerHTML = "<p>El código QR ha expirado.</p>";
     clearTimeout(qrTimer);
 }
+
