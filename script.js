@@ -31,6 +31,10 @@ function showPosition(position) {
     var lon = position.coords.longitude;
     var accuracy = position.coords.accuracy; // Precisión en metros
 
+    console.log("Latitud obtenida:", lat);
+    console.log("Longitud obtenida:", lon);
+    console.log("Precisión:", accuracy, "metros");
+
     var zoomLevel = accuracy < 50 ? 18 : 15;
 
     map = L.map('map').setView([lat, lon], zoomLevel);
@@ -44,6 +48,8 @@ function showPosition(position) {
         .openPopup();
 
     var distance = getDistanceFromLatLonInKm(lat, lon, targetLat, targetLon) * 1000; // Convertir a metros
+    console.log("Distancia calculada:", distance, "metros");
+
     var message = document.getElementById('message');
     
     if (distance < 100) { // Si la distancia es menor a 100 metros
@@ -114,3 +120,4 @@ function clearQRCode() {
     qrCodeDiv.innerHTML = "<p>El código QR ha expirado.</p>";
     clearTimeout(qrTimer);
 }
+
