@@ -60,7 +60,6 @@ function showPosition(position) {
         clearQRCode();
     }
 }
-}
 
 function showError(error) {
     var message = document.getElementById('message');
