@@ -5,6 +5,138 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Validación de Ubicación y QR Temporal</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            margin-bottom: 10px;
+            font-size: 18px;
+            color: #555;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+            margin-bottom: 10px;
+            width: 300px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus {
+            border-color: #28a745;
+            outline: none;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        button:hover {
+            background-color: #218838;
+            transform: scale(1.05);
+        }
+
+        #map {
+            height: 400px;
+            width: 100%;
+            max-width: 600px;
+            margin-top: 20px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #message {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #333;
+            text-align: center;
+            max-width: 600px;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #qrCode {
+            margin-top: 20px;
+            text-align: center;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 300px;
+        }
+
+        #qrPanel {
+            display: none;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        #qrPanel.show {
+            display: block;
+        }
+
+        /* Media Queries para dispositivos móviles */
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+
+            input[type="text"], button {
+                width: 100%;
+            }
+
+            #map, #message, #qrCode {
+                width: 100%;
+                max-width: none;
+            }
+        }
+    </style>
 </head>
 <body>
     <h1>Validación de Ubicación y Generación de QR</h1>
@@ -14,7 +146,7 @@
         <button type="submit">Validar Ubicación</button>
     </form>
     <p id="message"></p>
-    <div id="map" style="height: 400px;"></div>
+    <div id="map"></div>
     <div id="qrCode"></div>
 
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
@@ -22,4 +154,5 @@
     <script src="script.js"></script>
 </body>
 </html>
+
 
