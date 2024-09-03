@@ -1,10 +1,10 @@
 var map;
-var targetLat = 4.745156; // Latitud de la nueva ubicación específica (Cra. 145a #132b-28, Bogotá)
-var targetLon = -74.117450; // Longitud de la nueva ubicación específica
+var targetLat = 4.7399325; // Latitud de la nueva ubicación específica (Cra. 145a #132b-28, Bogotá)
+var targetLon = -74.1303559; // Longitud de la nueva ubicación específica
 var qrTimer;
 var marginOfError = 0.005; // Margen de error en grados (~555 metros)
 
-document.getElementById('emailForm').addEventListener('submit', function(event) {
+document.getElementById('idForm').addEventListener('submit', function(event) {
     event.preventDefault();
     getLocation();
 });
@@ -91,12 +91,23 @@ function generateQR() {
         colorLight : "#ffffff",
         correctLevel : QRCode.CorrectLevel.H
     });
+
+    // Mostrar el panel con el mensaje y el QR
+    var qrPanel = document.getElementById('qrPanel');
+    qrPanel.classList.add('show');
+    qrPanel.innerHTML = "<p>Este es su QR para validación total y ya</p>";
+    qrCodeDiv.style.display = 'block';
     
     // Borrar el QR después de 3 minutos
     qrTimer = setTimeout(clearQRCode, 180000);
 }
 
 function clearQRCode() {
+    var qrCodeDiv = document.getElementById('qrCode');
+    qrCodeDiv.innerHTML = "<p>El código QR ha expirado.</p>";
+    clearTimeout(qrTimer);
+}
+
     var qrCodeDiv = document.getElementById('qrCode');
     qrCodeDiv.innerHTML = "<p>El código QR ha expirado.</p>";
     clearTimeout(qrTimer);
