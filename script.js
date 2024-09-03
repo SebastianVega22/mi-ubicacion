@@ -1,7 +1,6 @@
 var map;
-var targetLat = 4.745152; // Latitud de la nueva ubicación específica (Cra. 145a #132b-28, Bogotá)
-var targetLon = -74.117456; // Longitud de la nueva ubicación específica
-var qrTimer;
+var targetLat = 4.7399325; // Latitud de la nueva ubicación específica (Cra. 145a #132b-28, Bogotá)
+var targetLon = -74.1303559; // Longitud de la nueva ubicación específica
 var marginOfError = 0.005; // Margen de error en grados (~555 metros)
 
 document.getElementById('idForm').addEventListener('submit', function(event) {
@@ -34,6 +33,9 @@ function showPosition(position) {
 
     var zoomLevel = accuracy < 50 ? 18 : 15;
 
+    if (map) {
+        map.remove();
+    }
     map = L.map('map').setView([lat, lon], zoomLevel);
     
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -52,11 +54,11 @@ function showPosition(position) {
 
     // Validar si la ubicación está dentro del margen de error
     if (Math.abs(lat - targetLat) <= marginOfError && Math.abs(lon - targetLon) <= marginOfError) {
-        message.innerHTML += "Te encuentras en el sitio. Generando código QR...";
-        generateQR();
+        message.innerHTML += "Te encuentras en el sitio. Mostrando enlace de YouTube...";
+        showYouTubeLink();
     } else {
         message.innerHTML += "No te encuentras en el sitio.";
-        clearQRCode();
+        hideYouTubeLink();
     }
 }
 
@@ -78,31 +80,13 @@ function showError(error) {
     }
 }
 
-function generateQR() {
-    // Limpiar cualquier timer previo
-    if (qrTimer) {
-        clearTimeout(qrTimer);
-    }
-
-    var qrCodeDiv = document.getElementById('qrCode');
-    qrCodeDiv.innerHTML = "";
-    
-    // Generar el código QR solo con el enlace de YouTube
-    var qr = new QRCode(qrCodeDiv, {
-        text: "https://www.youtube.com",
-        width: 128,
-        height: 128,
-        colorDark : "#000000",
-        colorLight : "#ffffff",
-        correctLevel : QRCode.CorrectLevel.H
-    });
-    
-    // Borrar el QR después de 3 minutos
-    qrTimer = setTimeout(clearQRCode, 180000);
+function showYouTubeLink() {
+    var linkContainer = document.getElementById('linkContainer');
+    linkContainer.style.display = "block";
 }
 
-function clearQRCode() {
-    var qrCodeDiv = document.getElementById('qrCode');
-    qrCodeDiv.innerHTML = "<p>El código QR ha expirado.</p>";
-    clearTimeout(qrTimer);
+function hideYouTubeLink() {
+    var linkContainer = document.getElementById('linkContainer');
+    linkContainer.style.display = "none";
 }
+
