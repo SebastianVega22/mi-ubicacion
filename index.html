@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Validación de Ubicación y QR Temporal</title>
+    <title>Validación de Ubicación y Enlace de YouTube</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <style>
         body {
@@ -96,7 +96,7 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
-        #qrCode {
+        #linkContainer {
             margin-top: 20px;
             text-align: center;
             padding: 20px;
@@ -105,20 +105,17 @@
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             max-width: 300px;
+            display: none; /* Escondido inicialmente */
         }
 
-        #qrPanel {
-            display: none;
-            padding: 20px;
-            background-color: #fff;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            text-align: center;
-            margin-top: 20px;
+        #linkContainer a {
+            color: #007bff;
+            text-decoration: none;
+            font-size: 18px;
         }
 
-        #qrPanel.show {
-            display: block;
+        #linkContainer a:hover {
+            text-decoration: underline;
         }
 
         /* Media Queries para dispositivos móviles */
@@ -131,7 +128,7 @@
                 width: 100%;
             }
 
-            #map, #message, #qrCode {
+            #map, #message, #linkContainer {
                 width: 100%;
                 max-width: none;
             }
@@ -139,7 +136,7 @@
     </style>
 </head>
 <body>
-    <h1>Validación de Ubicación y Generación de QR</h1>
+    <h1>Validación de Ubicación y Enlace de YouTube</h1>
     <form id="idForm">
         <label for="idNumber">Número de Cédula:</label>
         <input type="text" id="idNumber" name="idNumber" required pattern="\d{6,10}" title="Por favor ingrese un número de cédula válido.">
@@ -147,122 +144,11 @@
     </form>
     <p id="message"></p>
     <div id="map"></div>
-    <div id="qrCode"></div>
+    <div id="linkContainer">
+        <a id="youtubeLink" href="https://www.youtube.com" target="_blank">Ir al enlace de YouTube</a>
+    </div>
 
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/qrcode"></script>
-    <script>
-        var map;
-        var targetLat = 4.7399325; // Latitud de la nueva ubicación específica (Cra. 145a #132b-28, Bogotá)
-        var targetLon = -74.1303559; // Longitud de la nueva ubicación específica
-        var qrTimer;
-        var marginOfError = 0.005; // Margen de error en grados (~555 metros)
-
-        document.getElementById('idForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            getLocation();
-        });
-
-        function getLocation() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(showPosition, function(error) {
-                    if (error.code === error.TIMEOUT) {
-                        getLocation(); // Reintentar si hubo un timeout
-                    } else {
-                        showError(error);
-                    }
-                }, {
-                    enableHighAccuracy: true, // Solicita la máxima precisión
-                    timeout: 10000, // Espera máxima de 10 segundos
-                    maximumAge: 0 // No usar posiciones anteriores
-                });
-            } else {
-                alert("La geolocalización no es soportada por este navegador.");
-            }
-        }
-
-        function showPosition(position) {
-            var lat = position.coords.latitude;
-            var lon = position.coords.longitude;
-            var accuracy = position.coords.accuracy; // Precisión en metros
-
-            var zoomLevel = accuracy < 50 ? 18 : 15;
-
-            if (map) {
-                map.remove();
-            }
-            map = L.map('map').setView([lat, lon], zoomLevel);
-            
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            }).addTo(map);
-            
-            L.marker([lat, lon]).addTo(map)
-                .bindPopup("¡Aquí estás con una precisión de " + accuracy + " metros!")
-                .openPopup();
-
-            var message = document.getElementById('message');
-            
-            // Imprimir las coordenadas obtenidas
-            var coordinatesMessage = `Coordenadas obtenidas: Latitud: ${lat.toFixed(6)}, Longitud: ${lon.toFixed(6)}`;
-            message.innerHTML = coordinatesMessage + "<br>";
-
-            // Validar si la ubicación está dentro del margen de error
-            if (Math.abs(lat - targetLat) <= marginOfError && Math.abs(lon - targetLon) <= marginOfError) {
-                message.innerHTML += "Te encuentras en el sitio. Generando código QR...";
-                generateQR();
-            } else {
-                message.innerHTML += "No te encuentras en el sitio.";
-                clearQRCode();
-            }
-        }
-
-        function showError(error) {
-            var message = document.getElementById('message');
-            switch(error.code) {
-                case error.PERMISSION_DENIED:
-                    message.textContent = "El usuario negó la solicitud de geolocalización.";
-                    break;
-                case error.POSITION_UNAVAILABLE:
-                    message.textContent = "La información de ubicación no está disponible.";
-                    break;
-                case error.TIMEOUT:
-                    message.textContent = "La solicitud de ubicación ha caducado.";
-                    break;
-                case error.UNKNOWN_ERROR:
-                    message.textContent = "Se produjo un error desconocido.";
-                    break;
-            }
-        }
-
-        function generateQR() {
-            // Limpiar cualquier timer previo
-            if (qrTimer) {
-                clearTimeout(qrTimer);
-            }
-
-            var qrCodeDiv = document.getElementById('qrCode');
-            qrCodeDiv.innerHTML = ""; // Asegúrate de limpiar cualquier QR previo
-            
-            // Generar el código QR solo con el enlace de YouTube
-            new QRCode(qrCodeDiv, {
-                text: "https://www.youtube.com",
-                width: 128,
-                height: 128,
-                colorDark : "#000000",
-                colorLight : "#ffffff",
-                correctLevel : QRCode.CorrectLevel.H
-            });
-            
-            // Borrar el QR después de 3 minutos
-            qrTimer = setTimeout(clearQRCode, 180000);
-        }
-
-        function clearQRCode() {
-            var qrCodeDiv = document.getElementById('qrCode');
-            qrCodeDiv.innerHTML = "<p>El código QR ha expirado.</p>";
-            clearTimeout(qrTimer);
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
