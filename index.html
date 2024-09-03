@@ -1,21 +1,20 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Validación de Ubicación y QR Temporal</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <h1>Validación de Ubicación y Generación de QR</h1>
     <form id="idForm">
-        <label for="idNumber">Número de Cédula:):</label>
+        <label for="idNumber">Número de Cédula:</label>
         <input type="text" id="idNumber" name="idNumber" required pattern="\d{6,10}" title="Por favor ingrese un número de cédula válido.">
         <button type="submit">Validar Ubicación</button>
     </form>
     <p id="message"></p>
-    <div id="map"></div>
+    <div id="map" style="height: 400px;"></div>
     <div id="qrCode"></div>
 
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
@@ -23,3 +22,4 @@
     <script src="script.js"></script>
 </body>
 </html>
+
