@@ -87,12 +87,9 @@ function generateQR() {
     var qrCodeDiv = document.getElementById('qrCode');
     qrCodeDiv.innerHTML = "";
     
-    // Obtener el número de cédula ingresado
-    var idNumber = document.getElementById('idNumber').value;
-    
-    // Generar el código QR con el número de cédula
+    // Generar el código QR solo con el enlace de YouTube
     var qr = new QRCode(qrCodeDiv, {
-        text: `Número de cédula: ${idNumber}`,
+        text: "https://www.youtube.com",
         width: 128,
         height: 128,
         colorDark : "#000000",
