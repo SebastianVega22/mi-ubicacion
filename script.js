@@ -46,7 +46,7 @@ function showPosition(position) {
     var distance = getDistanceFromLatLonInKm(lat, lon, targetLat, targetLon) * 1000; // Convertir a metros
     var message = document.getElementById('message');
     
-    if (distance < 50) { // Si la distancia es menor a 50 metros
+    if (distance < 100) { // Si la distancia es menor a 100 metros
         message.textContent = "Te encuentras en el sitio. Generando código QR...";
         generateQR();
     } else {
@@ -114,4 +114,3 @@ function clearQRCode() {
     qrCodeDiv.innerHTML = "<p>El código QR ha expirado.</p>";
     clearTimeout(qrTimer);
 }
-
