@@ -1,6 +1,6 @@
 var map;
-var targetLat = 4.754089; // Latitud de la ubicación específica (a 72c-87, Dg. 81f #72c1, Bogotá)
-var targetLon = -74.053570; // Longitud de la ubicación específica
+var targetLat = 4.754089; // Latitud de la nueva ubicación específica (Cra. 145a #132b-28, Bogotá)
+var targetLon = -74.053570; // Longitud de la nueva ubicación específica
 var qrTimer;
 
 document.getElementById('emailForm').addEventListener('submit', function(event) {
@@ -114,3 +114,4 @@ function clearQRCode() {
     qrCodeDiv.innerHTML = "<p>El código QR ha expirado.</p>";
     clearTimeout(qrTimer);
 }
+
