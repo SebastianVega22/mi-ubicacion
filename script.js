@@ -79,12 +79,20 @@ function showError(error) {
 }
 
 function generateQR() {
+    // Limpiar cualquier timer previo
+    if (qrTimer) {
+        clearTimeout(qrTimer);
+    }
+
     var qrCodeDiv = document.getElementById('qrCode');
     qrCodeDiv.innerHTML = "";
     
-    // Generar el código QR
+    // Obtener el número de cédula ingresado
+    var idNumber = document.getElementById('idNumber').value;
+    
+    // Generar el código QR con el número de cédula
     var qr = new QRCode(qrCodeDiv, {
-        text: "https://www.youtube.com",
+        text: `Número de cédula: ${idNumber}`,
         width: 128,
         height: 128,
         colorDark : "#000000",
