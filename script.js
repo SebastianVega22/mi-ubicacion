@@ -1,6 +1,6 @@
 var map;
-var targetLat = 4.7399325; // Latitud de la nueva ubicación específica (Cra. 145a #132b-28, Bogotá)
-var targetLon = -74.1303559; // Longitud de la nueva ubicación específica
+var targetLat = 4.745160; // Latitud de la nueva ubicación específica (Cra. 145a #132b-28, Bogotá)
+var targetLon = -74.117450; // Longitud de la nueva ubicación específica
 var qrTimer;
 
 document.getElementById('emailForm').addEventListener('submit', function(event) {
