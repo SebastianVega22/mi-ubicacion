@@ -65,8 +65,9 @@ button:hover {
 
 #qrCode {
     margin-top: 20px;
-    display: none; /* Ocultar el QR hasta que se valide */
+    text-align: center;
 }
+
 
 #qrPanel {
     display: none;
