@@ -102,9 +102,3 @@ function clearQRCode() {
     clearTimeout(qrTimer);
 }
 
-
-    var qrCodeDiv = document.getElementById('qrCode');
-    qrCodeDiv.innerHTML = "<p>El código QR ha expirado.</p>";
-    clearTimeout(qrTimer);
-}
-
