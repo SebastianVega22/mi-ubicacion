@@ -91,12 +91,6 @@ function generateQR() {
         colorLight : "#ffffff",
         correctLevel : QRCode.CorrectLevel.H
     });
-
-    // Mostrar el panel con el mensaje y el QR
-    var qrPanel = document.getElementById('qrPanel');
-    qrPanel.classList.add('show');
-    qrPanel.innerHTML = "<p>Este es su QR para validación total y ya</p>";
-    qrCodeDiv.style.display = 'block';
     
     // Borrar el QR después de 3 minutos
     qrTimer = setTimeout(clearQRCode, 180000);
@@ -107,6 +101,7 @@ function clearQRCode() {
     qrCodeDiv.innerHTML = "<p>El código QR ha expirado.</p>";
     clearTimeout(qrTimer);
 }
+
 
     var qrCodeDiv = document.getElementById('qrCode');
     qrCodeDiv.innerHTML = "<p>El código QR ha expirado.</p>";
