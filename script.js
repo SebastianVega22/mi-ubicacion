@@ -1,6 +1,6 @@
 var map;
-var targetLat = 4.745152; // Latitud de la nueva ubicación específica (Cra. 145a #132b-28, Bogotá)
-var targetLon = -74.117456; // Longitud de la nueva ubicación específica
+var targetLat = 4.7399325; // Latitud de la nueva ubicación específica (Cra. 145a #132b-28, Bogotá)
+var targetLon = -74.1303559; // Longitud de la nueva ubicación específica
 var qrTimer;
 var marginOfError = 0.005; // Margen de error en grados (~555 metros)
 
@@ -50,8 +50,7 @@ function showPosition(position) {
     var coordinatesMessage = `Coordenadas obtenidas: Latitud: ${lat.toFixed(6)}, Longitud: ${lon.toFixed(6)}`;
     message.innerHTML = coordinatesMessage + "<br>";
 
-  
-    // Validar si la ubicación está dentro del margen de error más amplio
+    // Validar si la ubicación está dentro del margen de error
     if (Math.abs(lat - targetLat) <= marginOfError && Math.abs(lon - targetLon) <= marginOfError) {
         message.innerHTML += "Te encuentras en el sitio. Generando código QR...";
         generateQR();
@@ -107,5 +106,3 @@ function clearQRCode() {
     qrCodeDiv.innerHTML = "<p>El código QR ha expirado.</p>";
     clearTimeout(qrTimer);
 }
-
-
