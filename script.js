@@ -50,17 +50,16 @@ function showPosition(position) {
     var coordinatesMessage = `Coordenadas obtenidas: Latitud: ${lat.toFixed(6)}, Longitud: ${lon.toFixed(6)}`;
     message.innerHTML = coordinatesMessage + "<br>";
 
+  
     // Validar si la ubicación está dentro del margen de error más amplio
-    var latInRange = Math.abs(lat - targetLat) <= marginOfError;
-    var lonInRange = Math.abs(lon - targetLon) <= marginOfError;
-
-    if (latInRange && lonInRange) {
+    if (Math.abs(lat - targetLat) <= marginOfError && Math.abs(lon - targetLon) <= marginOfError) {
         message.innerHTML += "Te encuentras en el sitio. Generando código QR...";
         generateQR();
     } else {
         message.innerHTML += "No te encuentras en el sitio.";
         clearQRCode();
     }
+}
 }
 
 function showError(error) {
