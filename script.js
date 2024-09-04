@@ -1,6 +1,6 @@
 var map;
 var targetLat = 4.712562; // Latitud de la nueva ubicación específica (Cra. 145a #132b-28, Bogotá)
-var targetLon = -74.196338; // Longitud de la nueva ubicación específica
+var targetLon = -74.196338; // Longitud de la nueva ubicación específica (Cra. 145a #132b-28, Bogotá)
 var marginOfError = 0.005; // Margen de error en grados (~555 metros)
 
 document.getElementById('idForm').addEventListener('submit', function(event) {
@@ -89,4 +89,3 @@ function hideYouTubeLink() {
     var linkContainer = document.getElementById('linkContainer');
     linkContainer.style.display = "none";
 }
-
