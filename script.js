@@ -54,7 +54,7 @@ function showPosition(position) {
 
     // Validar si la ubicación está dentro del margen de error
     if (Math.abs(lat - targetLat) <= marginOfError && Math.abs(lon - targetLon) <= marginOfError) {
-        message.innerHTML += "Te encuentras en el sitio. Mostrando enlace QR...";
+        message.innerHTML += "Te encuentras en el sitio. Mostrando enlace...";
         showYouTubeLink();
     } else {
         message.innerHTML += "No te encuentras en el sitio.";
