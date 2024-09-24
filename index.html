@@ -5,151 +5,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Validación de Ubicación y Enlace</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            height: 100vh;
-            box-sizing: border-box;
-        }
-
-        h1 {
-            color: #333;
-            margin-bottom: 20px;
-        }
-
-        form {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-bottom: 20px;
-            padding: 20px;
-            background-color: #fff;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        label {
-            margin-bottom: 10px;
-            font-size: 18px;
-            color: #555;
-        }
-
-        input[type="text"] {
-            padding: 10px;
-            font-size: 16px;
-            margin-bottom: 10px;
-            width: 300px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
-            transition: border-color 0.3s;
-        }
-
-        input[type="text"]:focus {
-            border-color: #28a745;
-            outline: none;
-        }
-
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: #28a745;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.3s;
-        }
-
-        button:hover {
-            background-color: #218838;
-            transform: scale(1.05);
-        }
-
-        #map {
-            height: 400px;
-            width: 100%;
-            max-width: 600px;
-            margin-top: 20px;
-            border-radius: 10px;
-            border: 1px solid #ccc;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        #message {
-            margin-top: 20px;
-            font-size: 18px;
-            color: #333;
-            text-align: center;
-            max-width: 600px;
-            padding: 10px;
-            background-color: #fff;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        #linkContainer {
-            margin-top: 20px;
-            text-align: center;
-            padding: 20px;
-            background-color: #fff;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            max-width: 300px;
-            display: none; /* Escondido inicialmente */
-        }
-
-        #linkContainer a {
-            color: #007bff;
-            text-decoration: none;
-            font-size: 18px;
-        }
-
-        #linkContainer a:hover {
-            text-decoration: underline;
-        }
-
-        /* Media Queries para dispositivos móviles */
-        @media (max-width: 600px) {
-            body {
-                padding: 10px;
-            }
-
-            input[type="text"], button {
-                width: 100%;
-            }
-
-            #map, #message, #linkContainer {
-                width: 100%;
-                max-width: none;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <h1>Validación de Ubicación y Enlace</h1>
+    
+    <!-- Panel Decorado -->
+    <div class="wallet-panel">
+        <h2>Wallet</h2>
+        <div class="wallet-options">
+            <!-- Subtítulo para registrar wallet -->
+            <div class="wallet-section">
+                <h3>Registrarse</h3>
+                <button id="connectWallet">Obtener MetaMask</button>
+            </div>
+            
+            <!-- Línea divisoria vertical -->
+            <div class="divider-vertical"></div>
+
+            <!-- Subtítulo para validar dirección de wallet -->
+            <div class="wallet-section">
+                <h3>Ya tengo wallet</h3>
+                <button id="validateWallet">Validar wallet</button>
+                <p id="walletValidationMessage"></p>
+            </div>
+        </div>
+    </div>
+
     <form id="idForm">
         <label for="idNumber">Número de Cédula:</label>
         <input type="text" id="idNumber" name="idNumber" required pattern="\d{6,10}" title="Por favor ingrese un número de cédula válido.">
         <button type="submit">Validar Ubicación</button>
     </form>
+
     <p id="message"></p>
     <div id="map"></div>
     <div id="linkContainer">
         <a id="youtubeLink" href="https://www.aulasuniminuto.edu.co" target="_blank">Ir al enlace</a>
     </div>
-    <div id="loading" style="display:none;">
-    <div class="spinner"></div>
-    </div>
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
 
 
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
