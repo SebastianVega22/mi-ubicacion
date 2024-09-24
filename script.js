@@ -2,16 +2,21 @@ var map;
 var targetLat = 4.712562; // Latitud de la nueva ubicación específica (Cra. 145a #132b-28, Bogotá)
 var targetLon = -74.196338; // Longitud de la nueva ubicación específica (Cra. 145a #132b-28, Bogotá)
 var marginOfError = 0.005; // Margen de error en grados (~555 metros)
-let walletAddress = ""; // Variable para almacenar la dirección de la wallet
+var walletAddress = ""; // Variable para almacenar la dirección de la wallet
 
-// Conectar a MetaMask cuando el usuario haga clic en 'Obtener MetaMask'
-document.getElementById('connectWallet').addEventListener('click', async () => {
+// Redirección a la página de descarga de MetaMask para registrarse
+document.getElementById('connectWallet').addEventListener('click', () => {
+    window.open('https://metamask.io/es/download/', '_blank');
+});
+
+// Validar la dirección de la wallet conectada a MetaMask
+document.getElementById('validateWallet').addEventListener('click', async () => {
     if (typeof window.ethereum !== 'undefined') {
         try {
             // Solicitar acceso a la cuenta de MetaMask
             const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
             walletAddress = accounts[0]; // Guardar la dirección de la wallet
-            console.log('MetaMask conectado:', walletAddress);
+            document.getElementById('walletValidationMessage').innerText = `Esta es su dirección de wallet: ${walletAddress}`;
         } catch (error) {
             console.error('Error al conectar con MetaMask:', error);
         }
@@ -20,33 +25,11 @@ document.getElementById('connectWallet').addEventListener('click', async () => {
     }
 });
 
-// Validar la dirección de la wallet cuando el usuario haga clic en 'Validar wallet'
-document.getElementById('validateWallet').addEventListener('click', async () => {
-    if (walletAddress === "") {
-        // Si no se ha conectado aún, intentar conectar
-        if (typeof window.ethereum !== 'undefined') {
-            try {
-                const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-                walletAddress = accounts[0]; // Guardar la dirección de la wallet
-                console.log('MetaMask conectado:', walletAddress);
-            } catch (error) {
-                console.error('Error al conectar con MetaMask:', error);
-                return; // No continuar si hay un error
-            }
-        } else {
-            alert('MetaMask no está instalada. Por favor, instala MetaMask.');
-            return;
-        }
-    }
-
-    // Mostrar la dirección de la wallet si ya está conectada
-    if (walletAddress !== "") {
-        document.getElementById('walletValidationMessage').innerText = `Esta es su dirección de wallet: ${walletAddress}`;
-    } else {
-        document.getElementById('walletValidationMessage').innerText = "No se pudo conectar a MetaMask.";
-    }
+// Manejo del formulario y validación de ubicación
+document.getElementById('idForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    getLocation();
 });
-
 
 function getLocation() {
     if (navigator.geolocation) {
@@ -98,7 +81,7 @@ function showPosition(position) {
         showYouTubeLink();
     } else {
         message.innerHTML += "No te encuentras en el sitio.";
-        hideYouTubeLink();
+        hideYouTubeLink(); // Asegura que el enlace no se muestre si la validación falla
     }
 }
 
@@ -122,10 +105,10 @@ function showError(error) {
 
 function showYouTubeLink() {
     var linkContainer = document.getElementById('linkContainer');
-    linkContainer.style.display = "block";
+    linkContainer.style.display = "block"; // Mostrar el enlace solo si la validación es exitosa
 }
 
 function hideYouTubeLink() {
     var linkContainer = document.getElementById('linkContainer');
-    linkContainer.style.display = "none";
+    linkContainer.style.display = "none"; // Ocultar el enlace si la validación no es exitosa
 }
