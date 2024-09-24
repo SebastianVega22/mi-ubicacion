@@ -1,4 +1,4 @@
-var map; // Variable para el mapa
+var map;
 var targetLat = 4.712562; // Latitud de la nueva ubicación específica (Cra. 145a #132b-28, Bogotá)
 var targetLon = -74.196338; // Longitud de la nueva ubicación específica (Cra. 145a #132b-28, Bogotá)
 var marginOfError = 0.005; // Margen de error en grados (~555 metros)
@@ -19,8 +19,6 @@ document.getElementById('connectWallet').addEventListener('click', async () => {
         alert('MetaMask no está instalada. Por favor, instala MetaMask.');
     }
 });
-
-// Manejo del formulario y validación de ubicación
 document.getElementById('idForm').addEventListener('submit', function(event) {
     event.preventDefault();
     getLocation();
@@ -51,13 +49,11 @@ function showPosition(position) {
 
     var zoomLevel = accuracy < 50 ? 18 : 15;
 
-    // Verificar si el mapa ya fue creado
-    if (!map) {
-        map = L.map('map').setView([lat, lon], zoomLevel); // Inicializa el mapa solo una vez
-    } else {
-        map.setView([lat, lon], zoomLevel); // Actualiza la vista del mapa con las nuevas coordenadas
+    if (map) {
+        map.remove();
     }
-
+    map = L.map('map').setView([lat, lon], zoomLevel);
+    
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
