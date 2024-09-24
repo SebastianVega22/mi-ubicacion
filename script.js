@@ -9,6 +9,9 @@ document.getElementById('idForm').addEventListener('submit', function(event) {
 });
 
 function getLocation() {
+    // Mostrar la animación de carga
+    document.getElementById('loading').style.display = 'flex';
+
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition, function(error) {
             if (error.code === error.TIMEOUT) {
@@ -16,6 +19,8 @@ function getLocation() {
             } else {
                 showError(error);
             }
+            // Ocultar la animación de carga
+            document.getElementById('loading').style.display = 'none';
         }, {
             enableHighAccuracy: true, // Solicita la máxima precisión
             timeout: 10000, // Espera máxima de 10 segundos
@@ -23,10 +28,15 @@ function getLocation() {
         });
     } else {
         alert("La geolocalización no es soportada por este navegador.");
+        // Ocultar la animación de carga
+        document.getElementById('loading').style.display = 'none';
     }
 }
 
 function showPosition(position) {
+    // Ocultar la animación de carga al finalizar la validación
+    document.getElementById('loading').style.display = 'none';
+
     var lat = position.coords.latitude;
     var lon = position.coords.longitude;
     var accuracy = position.coords.accuracy; // Precisión en metros
@@ -62,30 +72,3 @@ function showPosition(position) {
     }
 }
 
-function showError(error) {
-    var message = document.getElementById('message');
-    switch(error.code) {
-        case error.PERMISSION_DENIED:
-            message.textContent = "El usuario negó la solicitud de geolocalización.";
-            break;
-        case error.POSITION_UNAVAILABLE:
-            message.textContent = "La información de ubicación no está disponible.";
-            break;
-        case error.TIMEOUT:
-            message.textContent = "La solicitud de ubicación ha caducado.";
-            break;
-        case error.UNKNOWN_ERROR:
-            message.textContent = "Se produjo un error desconocido.";
-            break;
-    }
-}
-
-function showYouTubeLink() {
-    var linkContainer = document.getElementById('linkContainer');
-    linkContainer.style.display = "block";
-}
-
-function hideYouTubeLink() {
-    var linkContainer = document.getElementById('linkContainer');
-    linkContainer.style.display = "none";
-}
