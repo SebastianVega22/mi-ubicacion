@@ -1,3 +1,26 @@
+/* Estilo para el contenedor de la dirección de MetaMask */
+#walletMessageContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    background-color: #f0f8ff; /* Fondo suave */
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 80%; /* Ajusta el ancho */
+    max-width: 600px; /* Ancho máximo */
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#walletValidationMessage {
+    font-size: 16px;
+    color: #004080; /* Azul */
+}
+
+/* Resto de los estilos... */
 body {
     font-family: 'Arial', sans-serif;
     background-color: #f0f8ff; /* Color de fondo suave */
@@ -34,7 +57,8 @@ h1 {
 
 .wallet-options {
     display: flex;
-    justify-content: space-around;
+    align-items: center;
+    justify-content: center;
 }
 
 .wallet-section {
@@ -54,7 +78,6 @@ button {
     cursor: pointer;
     transition: background-color 0.3s, transform 0.3s;
     margin-top: 10px;
-    margin: 10px;
 }
 
 button:hover {
@@ -126,6 +149,9 @@ input[type="text"]:focus {
 }
 
 #linkContainer a:hover {
+    text-decoration: underline;
+}
+ontainer a:hover {
     text-decoration: underline;
 }
 
