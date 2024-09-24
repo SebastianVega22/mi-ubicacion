@@ -2,7 +2,6 @@ var map;
 var targetLat = 4.712562; // Latitud de la nueva ubicación específica (Cra. 145a #132b-28, Bogotá)
 var targetLon = -74.196338; // Longitud de la nueva ubicación específica (Cra. 145a #132b-28, Bogotá)
 var marginOfError = 0.005; // Margen de error en grados (~555 metros)
-var walletAddress = ""; // Variable para almacenar la dirección de la wallet
 let walletAddress = ""; // Variable para almacenar la dirección de la wallet
 
 // Conectar a MetaMask cuando el usuario haga clic en 'Obtener MetaMask'
