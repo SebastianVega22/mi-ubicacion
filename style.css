@@ -115,14 +115,15 @@ input[type="text"]:focus {
 }
 
 #map {
-    height: 400px;
-    width: 100%;
-    max-width: 600px;
+    height: 400px; /* Altura del mapa */
+    width: 100%; /* Ancho total */
+    max-width: 600px; /* Ancho máximo */
     margin-top: 20px;
     border-radius: 10px;
     border: 1px solid #ccc;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Añade una sombra para darle profundidad al mapa */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra para dar profundidad */
 }
+
 
 #message {
     margin-top: 20px;
