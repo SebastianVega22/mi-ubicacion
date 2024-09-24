@@ -19,10 +19,34 @@ document.getElementById('connectWallet').addEventListener('click', async () => {
         alert('MetaMask no está instalada. Por favor, instala MetaMask.');
     }
 });
-document.getElementById('idForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-    getLocation();
+
+// Validar la dirección de la wallet cuando el usuario haga clic en 'Validar wallet'
+document.getElementById('validateWallet').addEventListener('click', async () => {
+    if (walletAddress === "") {
+        // Si no se ha conectado aún, intentar conectar
+        if (typeof window.ethereum !== 'undefined') {
+            try {
+                const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                walletAddress = accounts[0]; // Guardar la dirección de la wallet
+                console.log('MetaMask conectado:', walletAddress);
+            } catch (error) {
+                console.error('Error al conectar con MetaMask:', error);
+                return; // No continuar si hay un error
+            }
+        } else {
+            alert('MetaMask no está instalada. Por favor, instala MetaMask.');
+            return;
+        }
+    }
+
+    // Mostrar la dirección de la wallet si ya está conectada
+    if (walletAddress !== "") {
+        document.getElementById('walletValidationMessage').innerText = `Esta es su dirección de wallet: ${walletAddress}`;
+    } else {
+        document.getElementById('walletValidationMessage').innerText = "No se pudo conectar a MetaMask.";
+    }
 });
+
 
 function getLocation() {
     if (navigator.geolocation) {
