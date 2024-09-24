@@ -1,6 +1,6 @@
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #f4f4f4;
+    background-color: #f0f8ff; /* Color de fondo suave */
     margin: 0;
     padding: 0;
     display: flex;
@@ -8,7 +8,7 @@ body {
     align-items: center;
     flex-direction: column;
     height: 100vh;
-    box-sizing: border-box; /* Asegura que el padding y border se incluyan en el ancho y alto */
+    box-sizing: border-box;
 }
 
 h1 {
@@ -16,6 +16,53 @@ h1 {
     margin-bottom: 20px;
 }
 
+/* Panel de Wallet */
+.wallet-panel {
+    background-color: #e6f2ff; /* Fondo azul suave */
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    max-width: 90%;
+    margin-bottom: 20px;
+}
+
+.wallet-panel h2 {
+    color: #004080; /* Color de título azul */
+    text-align: center;
+}
+
+.wallet-options {
+    display: flex;
+    justify-content: space-around;
+}
+
+.wallet-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Botones */
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff; /* Azul */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    margin-top: 10px;
+    margin: 10px;
+}
+
+button:hover {
+    background-color: #0056b3; /* Azul oscuro */
+    transform: scale(1.05); /* Efecto hover */
+}
+
+/* Formularios */
 form {
     display: flex;
     flex-direction: column;
@@ -28,12 +75,6 @@ form {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-label {
-    margin-bottom: 10px;
-    font-size: 18px;
-    color: #555; /* Añade un color para el texto del label */
-}
-
 input[type="text"] {
     padding: 10px;
     font-size: 16px;
@@ -42,28 +83,12 @@ input[type="text"] {
     border: 1px solid #ccc;
     border-radius: 5px;
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
-    transition: border-color 0.3s; /* Suaviza la transición de color del borde */
+    transition: border-color 0.3s;
 }
 
 input[type="text"]:focus {
-    border-color: #28a745; /* Cambia el color del borde al hacer focus */
+    border-color: #007bff; /* Cambia el color del borde al hacer focus */
     outline: none; /* Elimina el outline por defecto */
-}
-
-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #28a745;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s; /* Suaviza las transiciones */
-}
-
-button:hover {
-    background-color: #218838;
-    transform: scale(1.05); /* Agrega un pequeño efecto de escala al hover */
 }
 
 #map {
@@ -88,71 +113,19 @@ button:hover {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra ligera para el mensaje */
 }
 
-#qrCode {
-    margin-top: 20px;
-    text-align: center;
-    padding: 20px;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    max-width: 300px;
-}
-
-#qrPanel {
+#linkContainer {
     display: none;
-    padding: 20px;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 10px;
     text-align: center;
     margin-top: 20px;
 }
 
-#qrPanel.show {
-    display: block;
-}
-#loading {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.8);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999; /* Para asegurar que la animación esté en la parte superior */
+#linkContainer a {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 18px;
 }
 
-.spinner {
-    border: 8px solid #f3f3f3;
-    border-top: 8px solid #28a745; /* Color de la parte superior */
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-
-/* Media Queries para dispositivos móviles */
-@media (max-width: 600px) {
-    body {
-        padding: 10px;
-    }
-
-    input[type="text"], button {
-        width: 100%; /* Asegura que los elementos del formulario ocupen el 100% del ancho en móviles */
-    }
-
-    #map, #message, #qrCode {
-        width: 100%;
-        max-width: none; /* Elimina el máximo ancho para móviles */
-    }
+#linkContainer a:hover {
+    text-decoration: underline;
 }
 
