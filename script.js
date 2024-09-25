@@ -2,34 +2,36 @@ var map;
 var targetLat = 4.712562; // Latitud de la nueva ubicación específica (Cra. 145a #132b-28, Bogotá)
 var targetLon = -74.196338; // Longitud de la nueva ubicación específica (Cra. 145a #132b-28, Bogotá)
 var marginOfError = 0.005; // Margen de error en grados (~555 metros)
-var walletAddress = ""; // Variable para almacenar la dirección de la wallet
 
-// Redirección a la página de descarga de MetaMask para registrarse
-document.getElementById('connectWallet').addEventListener('click', () => {
-    window.open('https://metamask.io/es/download/', '_blank');
-});
-
-// Validar la dirección de la wallet conectada a MetaMask
-document.getElementById('validateWallet').addEventListener('click', async () => {
-    if (typeof window.ethereum !== 'undefined') {
-        try {
-            // Solicitar acceso a la cuenta de MetaMask
-            const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-            walletAddress = accounts[0]; // Guardar la dirección de la wallet
-            document.getElementById('walletValidationMessage').innerText = `Esta es su dirección de wallet: ${walletAddress}`;
-        } catch (error) {
-            console.error('Error al conectar con MetaMask:', error);
-        }
-    } else {
-        alert('MetaMask no está instalada. Por favor, instala MetaMask.');
-    }
-});
-
-// Manejo del formulario y validación de ubicación
 document.getElementById('idForm').addEventListener('submit', function(event) {
     event.preventDefault();
     getLocation();
 });
+// Redirección a la página de descarga de MetaMask para registrarse
+document.getElementById('obtenerWallet').addEventListener('click', () => {
+    window.open('https://metamask.io/es/download/', '_blank');
+});
+//VALIDAR WALLET EN METAMASK
+document.getElementById('validarWallet').addEventListener('click', async function() {
+    if (typeof window.ethereum !== 'undefined') {
+        try {
+            // Solicitar acceso a MetaMask
+            const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+            const walletAddress = accounts[0]; // Guardar la primera cuenta en la variable
+
+            // Imprimir la dirección en pantalla
+            document.getElementById('message').innerHTML = `Esta es su Wallet: ${walletAddress}`;
+        } catch (error) {
+            // Si el usuario rechaza la conexión o hay otro error
+            console.error("Error al conectar con MetaMask:", error);
+            document.getElementById('message').innerHTML = "Error al conectar con MetaMask. Asegúrese de que esté instalada y habilitada.";
+        }
+    } else {
+        // Si MetaMask no está instalada
+        document.getElementById('message').innerHTML = "MetaMask no está instalada. Por favor instálela para validar su Wallet.";
+    }
+});
+
 
 function getLocation() {
     if (navigator.geolocation) {
@@ -77,11 +79,11 @@ function showPosition(position) {
 
     // Validar si la ubicación está dentro del margen de error
     if (Math.abs(lat - targetLat) <= marginOfError && Math.abs(lon - targetLon) <= marginOfError) {
-        message.innerHTML += "Te encuentras en el sitio. Mostrando enlace...";
-        showYouTubeLink();
+        message.innerHTML += "Te encuentras en el sitio. Serás redirigido en 10 segundos...";
+        setTimeout(redirectToUniminuto, 10000); // Espera de 10 segundos antes de redirigir
     } else {
         message.innerHTML += "No te encuentras en el sitio.";
-        hideYouTubeLink(); // Asegura que el enlace no se muestre si la validación falla
+        hideYouTubeLink();
     }
 }
 
@@ -103,12 +105,8 @@ function showError(error) {
     }
 }
 
-function showYouTubeLink() {
-    var linkContainer = document.getElementById('linkContainer');
-    linkContainer.style.display = "block"; // Mostrar el enlace solo si la validación es exitosa
+function redirectToUniminuto() {
+    // Redirigir automáticamente al enlace de Aulas Uniminuto
+    window.location.href = "https://www.aulasuniminuto.edu.co";
 }
 
-function hideYouTubeLink() {
-    var linkContainer = document.getElementById('linkContainer');
-    linkContainer.style.display = "none"; // Ocultar el enlace si la validación no es exitosa
-}
