@@ -5,37 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Validación de Ubicación y Enlace</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-    <h1>Validación de Ubicación y Enlace</h1>
-    
-    <!-- Panel Decorado -->
-    <div class="wallet-panel">
-        <h2>Wallet</h2>
-        <div class="wallet-options">
-            <!-- Subtítulo para registrar wallet -->
-            <div class="wallet-section">
-                <h3>Registrarse</h3>
-                <button id="connectWallet">Obtener MetaMask</button>
-            </div>
-            
-            <!-- Línea divisoria vertical -->
-            <div class="divider-vertical"></div>
-
-            <!-- Subtítulo para validar dirección de wallet -->
-            <div class="wallet-section">
-                <h3>Ya tengo wallet</h3>
-                <button id="validateWallet">Validar wallet</button>
-            </div>
-        </div>
-
-        <!-- Contenedor para la dirección de la wallet -->
-        <div id="walletMessageContainer">
-            <p id="walletValidationMessage">Esta es su dirección de wallet:</p>
-        </div>
+    <h1>VALIDACION</h1>
+    <div class="wallet-section">
+        <h2>Validación Wallet</h2>
+        <button id="obtenerWallet">Obtener Wallet</button>
+        <button id="validarWallet">Validar Wallet</button>
     </div>
-
+    <h2>Validación de Ubicación y Enlace</h1>
     <form id="idForm">
         <label for="idNumber">Número de Cédula:</label>
         <input type="text" id="idNumber" name="idNumber" required pattern="\d{6,10}" title="Por favor ingrese un número de cédula válido.">
@@ -43,12 +22,12 @@
     </form>
 
     <p id="message"></p>
+    
     <div id="map"></div>
-    <div id="linkContainer">
-        <a id="youtubeLink" href="https://www.aulasuniminuto.edu.co" target="_blank">Ir al enlace</a>
-    </div>
+    
 
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
+
