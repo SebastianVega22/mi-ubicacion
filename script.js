@@ -14,20 +14,9 @@ document.getElementById('obtenerWallet').addEventListener('click', () => {
 //VALIDAR WALLET EN METAMASK
 //VALIDAR WALLET EN METAMASK
 document.getElementById('validarWallet').addEventListener('click', async function() {
-    // Detectar si es Android
-    const isAndroid = /Android/i.test(navigator.userAgent);
-
-    if (isAndroid) {
-        // Redirigir a la app de MetaMask en Android
-        document.getElementById('message').innerHTML = "Redirigiendo a MetaMask en Android...";
-        window.location.href = 'https://metamask.app.link/dapp/https://sebastianvega22.github.io/mi-ubicacion/'; // Reemplaza "tu-dominio.com" con el dominio de tu aplicación
-        return;
-    }
-
-    // Si es un navegador de escritorio con MetaMask
     if (typeof window.ethereum !== 'undefined') {
         try {
-            // Solicitar acceso a MetaMask en navegadores de escritorio
+            // Solicitar acceso a MetaMask
             const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
             const walletAddress = accounts[0]; // Guardar la primera cuenta en la variable
 
@@ -39,7 +28,7 @@ document.getElementById('validarWallet').addEventListener('click', async functio
             document.getElementById('message').innerHTML = "Error al conectar con MetaMask. Asegúrese de que esté instalada y habilitada.";
         }
     } else {
-        // Si MetaMask no está instalada en el navegador
+        // Si MetaMask no está instalada
         document.getElementById('message').innerHTML = "MetaMask no está instalada. Por favor instálela para validar su Wallet.";
     }
 });
