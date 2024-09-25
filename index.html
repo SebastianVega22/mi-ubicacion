@@ -6,6 +6,31 @@
     <title>Validación de Ubicación y Enlace</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <link rel="stylesheet" href="style.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.js"></script> <!-- Biblioteca para desencriptar -->
+    <script>
+        function desencriptarEnlace(encryptedLink) {
+            const secretKey = "mi_clave_secreta"; // Debe ser la misma clave usada para encriptar
+            try {
+                const decryptedBytes = CryptoJS.AES.decrypt(encryptedLink, secretKey);
+                const decryptedLink = decryptedBytes.toString(CryptoJS.enc.Utf8);
+
+                // Redirigir al enlace desencriptado
+                if (decryptedLink) {
+                    window.location.href = decryptedLink;
+                } else {
+                    alert("No se pudo validar el enlace.");
+                }
+            } catch (e) {
+                alert("Error al desencriptar el enlace.");
+            }
+        }
+
+        window.onload = function() {
+            // Obtener el enlace encriptado de la URL (si está en un query param o hash)
+            const encryptedLink = window.location.hash.substring(1); // O también podrías usar window.location.search
+            desencriptarEnlace(encryptedLink);
+        };
+    </script>
 </head>
 <body>
     <h1>VALIDACION</h1>
